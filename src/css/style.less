@@ -1,0 +1,32 @@
+.smg-dpi--hidden {
+	visibility: hidden;
+}
+
+.smg-dpi--prog {
+	background-color: transparent;
+	pointer-events: none;
+
+	> .overlay {
+		pointer-events: all;
+	}
+	
+	.smg-dpi--prog--row {
+		padding: 5px 16px;
+	}
+
+	.smg-dpi--prog--outer {
+		background-color: #212428;
+		display: inline-block;
+		height: 10px;
+		width: 400px;
+
+		&.smg-dpi--small {
+			height: 3px;
+		}
+	}
+	.smg-dpi--prog--inner {
+		background-color: #8BC34A;
+		height: 100%;
+		width: 0%;
+	}
+}

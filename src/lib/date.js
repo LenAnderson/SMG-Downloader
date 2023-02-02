@@ -1,0 +1,1 @@
+export const isoDate = (it)=>`${it.getFullYear()}-${(it.getMonth()+1).toString().padStart(2,'0')}-${it.getDate().toString().padStart(2,'0')}`;
