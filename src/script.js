@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         SocialMediaGirls - Download Post Images
 // @namespace    https://github.com/LenAnderson
+// @downloadURL  https://github.com/LenAnderson/SMG-Downloader/raw/master/SocialMediaGirls-Downloader.user.js
 // @version      1.5
 // @description  Download images from a forum post on SocialMediaGirls.com
 // @author       LenAnderson
