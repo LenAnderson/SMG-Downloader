@@ -5,7 +5,11 @@ export class ImageBamSupport {
 		const status = GM_getValue('smg-dpi--imagebam--pleaseWait');
 		if (status == 'waiting') {
 			log('status = waiting');
-			if ($('.view-image')) {
+			const thumb = $('.main-content .images a.thumbnail');
+			if (thumb) {
+				log('this is an album');
+				location.href = `${thumb.href}#smg-dpi--pleaseWait`;
+			} else if ($('.view-image')) {
 				log('already waited');
 				GM_setValue('smg-dpi--imagebam--pleaseWait', 'done');
 			} else {
