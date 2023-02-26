@@ -2,7 +2,7 @@
 // @name         SocialMediaGirls - Download Post Images
 // @namespace    https://github.com/LenAnderson
 // @downloadURL  https://github.com/LenAnderson/SMG-Downloader/raw/master/SocialMediaGirls-Downloader.user.js
-// @version      1.6
+// @version      1.7
 // @description  Download images from a forum post on SocialMediaGirls.com
 // @author       LenAnderson
 // @match        https://forums.socialmediagirls.com/threads/*
@@ -307,6 +307,7 @@ class ZupImages extends Hoster {
 
 
 
+
 class HosterFactory {
 	/**@returns{Hoster[]}*/
 	static get(/**@type{HTMLElement}*/post) {
@@ -321,6 +322,7 @@ class HosterFactory {
 			new ZupImages(post),
 			new Kiwi(post),
 			new PixlLi(post),
+			new ImxTo(post),
 		];
 	}
 }
@@ -1099,6 +1101,18 @@ class ImageBamSupport {
 				}
 			}
 		}
+	}
+}
+
+
+// src\Hoster\ImxTo.js
+
+
+
+
+class ImxTo extends Hoster {
+	async fetchUrls() {
+		return $$(this.post, 'img[src*="https://imx.to/u/"]').map(it=>it.src.replace('/t/', '/i/'));
 	}
 }
 // ---------------- /IMPORTS ----------------
