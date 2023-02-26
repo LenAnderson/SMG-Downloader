@@ -9,6 +9,7 @@ import { PixlLi } from "./Hoster/PixlLi.js";
 import { PixlIs } from "./Hoster/PixlIs.js";
 import { Putmega } from "./Hoster/Putmega.js";
 import { ZupImages } from "./Hoster/ZupImages.js";
+import { ImxTo } from "./Hoster/ImxTo.js";
 
 export class HosterFactory {
 	/**@returns{Hoster[]}*/
@@ -24,6 +25,7 @@ export class HosterFactory {
 			new ZupImages(post),
 			new Kiwi(post),
 			new PixlLi(post),
+			new ImxTo(post),
 		];
 	}
 }
