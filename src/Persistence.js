@@ -1,4 +1,4 @@
-export class Persistance {
+export class Persistence {
 	static get threadDict() {
 		return JSON.parse(localStorage.getItem('smg-dpi--threadDict') || '{}');
 	}

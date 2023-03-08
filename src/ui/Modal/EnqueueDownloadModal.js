@@ -1,5 +1,5 @@
 import { isoDate } from "../../lib/date.js";
-import { Persistance } from "../../Persistance.js";
+import { Persistence } from "../../Persistence.js";
 import { Post } from "../../Post.js";
 import { Modal } from "../Modal.js";
 
@@ -18,11 +18,11 @@ export class EnqueueDownloadModal extends Modal {
 
 	buildBody() {
 		this.body.append(this.makeChoices('Download Location', [
-			Persistance.getThread(this.post.thread),
+			Persistence.getThread(this.post.thread),
 			this.post.thread,
 		].filter(it=>it)));
 		this.body.append(this.makeChoices('Subfolder', [
-			this.post.title ? Persistance.getGal(this.post.title) : false,
+			this.post.title ? Persistence.getGal(this.post.title) : false,
 			this.post.title ? `${isoDate(this.post.date)} ${this.post.title}` : false,
 			`${isoDate(this.post.date)} ${this.post.id}`,
 			'Random',
@@ -36,12 +36,12 @@ export class EnqueueDownloadModal extends Modal {
 				let threadVal = $$(this.root, '[name="Download Location"]').find(it=>it.checked).value;
 				if (threadVal == '__CUSTOM__') {
 					threadVal = $(this.root, '[name="Download Location__CUSTOM__"]').value.trim();
-					Persistance.setThread(this.post.thread, threadVal);
+					Persistence.setThread(this.post.thread, threadVal);
 				}
 				let galVal = $$(this.root, '[name="Subfolder"]').find(it=>it.checked).value;
 				if (galVal == '__CUSTOM__') {
 					galVal = $(this.root, '[name="Subfolder__CUSTOM__"]').value.trim();
-					Persistance.setGal(this.post.title, galVal);
+					Persistence.setGal(this.post.title, galVal);
 				}
 				this.outcome = {
 					thread: threadVal,
