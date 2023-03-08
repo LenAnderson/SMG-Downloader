@@ -193,7 +193,7 @@ class ImgBox extends Hoster {
 
 class JpgChurch extends Hoster {
 	async fetchUrls() {
-		return $$(this.post, 'img[data-url*="jpg.church"]').map(it=>it.getAttribute('data-url').replace(/(?:\.(?:th|md)(\.jpg))?$/, '$1'));
+		return $$(this.post, 'img[data-url*="jpg.church"]').map(it=>it.getAttribute('data-url').replace(/(?:\.(?:th|md)(\.jpg|\.webp))?$/, '$1'));
 	}
 }
 
@@ -294,6 +294,18 @@ class ZupImages extends Hoster {
 }
 
 
+// src\Hoster\ImxTo.js
+
+
+
+
+class ImxTo extends Hoster {
+	async fetchUrls() {
+		return $$(this.post, 'img[src*="https://imx.to/u/"]').map(it=>it.src.replace('/t/', '/i/'));
+	}
+}
+
+
 // src\HosterFactory.js
 
 
@@ -332,8 +344,8 @@ class HosterFactory {
 const isoDate = (it)=>`${it.getFullYear()}-${(it.getMonth()+1).toString().padStart(2,'0')}-${it.getDate().toString().padStart(2,'0')}`;
 
 
-// src\Persistance.js
-class Persistance {
+// src\Persistence.js
+class Persistence {
 	static get threadDict() {
 		return JSON.parse(localStorage.getItem('smg-dpi--threadDict') || '{}');
 	}
@@ -582,11 +594,11 @@ class EnqueueDownloadModal extends Modal {
 
 	buildBody() {
 		this.body.append(this.makeChoices('Download Location', [
-			Persistance.getThread(this.post.thread),
+			Persistence.getThread(this.post.thread),
 			this.post.thread,
 		].filter(it=>it)));
 		this.body.append(this.makeChoices('Subfolder', [
-			this.post.title ? Persistance.getGal(this.post.title) : false,
+			this.post.title ? Persistence.getGal(this.post.title) : false,
 			this.post.title ? `${isoDate(this.post.date)} ${this.post.title}` : false,
 			`${isoDate(this.post.date)} ${this.post.id}`,
 			'Random',
@@ -600,12 +612,12 @@ class EnqueueDownloadModal extends Modal {
 				let threadVal = $$(this.root, '[name="Download Location"]').find(it=>it.checked).value;
 				if (threadVal == '__CUSTOM__') {
 					threadVal = $(this.root, '[name="Download Location__CUSTOM__"]').value.trim();
-					Persistance.setThread(this.post.thread, threadVal);
+					Persistence.setThread(this.post.thread, threadVal);
 				}
 				let galVal = $$(this.root, '[name="Subfolder"]').find(it=>it.checked).value;
 				if (galVal == '__CUSTOM__') {
 					galVal = $(this.root, '[name="Subfolder__CUSTOM__"]').value.trim();
-					Persistance.setGal(this.post.title, galVal);
+					Persistence.setGal(this.post.title, galVal);
 				}
 				this.outcome = {
 					thread: threadVal,
@@ -1101,18 +1113,6 @@ class ImageBamSupport {
 				}
 			}
 		}
-	}
-}
-
-
-// src\Hoster\ImxTo.js
-
-
-
-
-class ImxTo extends Hoster {
-	async fetchUrls() {
-		return $$(this.post, 'img[src*="https://imx.to/u/"]').map(it=>it.src.replace('/t/', '/i/'));
 	}
 }
 // ---------------- /IMPORTS ----------------
